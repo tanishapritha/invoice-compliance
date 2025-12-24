@@ -1,0 +1,17 @@
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.llama_index_cache/
+storage/
+audit_logs.jsonl
+venv/
+.vscode/
+.idea/

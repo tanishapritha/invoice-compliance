@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+pydantic
+llama-index
+llama-index-llms-openai
+llama-index-retrievers-bm25
+python-dotenv
+numpy

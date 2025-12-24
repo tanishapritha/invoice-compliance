@@ -1,0 +1,44 @@
+SECTION 16: INPUT TAX CREDIT
+
+(1) Every registered person shall be entitled to take credit of input tax charged on any supply of goods or services or both to him which are used or intended to be used in the course or furtherance of his business.
+
+(2) The input tax credit shall be available on the basis of invoice or debit note issued by a registered supplier.
+
+(3) No registered person shall be entitled to the credit of any input tax in respect of any supply of goods or services or both to him unless:
+    (a) he is in possession of a tax invoice or debit note
+    (b) he has received the goods or services or both
+    (c) the tax charged has been actually paid to the Government
+    (d) he has furnished the return under section 39
+
+(4) A registered person shall not be entitled to take input tax credit in respect of any supply of goods or services or both after the due date of furnishing of the return under section 39 for the month of September following the end of financial year or furnishing of the relevant annual return, whichever is earlier.
+
+SECTION 17: APPORTIONMENT OF CREDIT AND BLOCKED CREDITS
+
+(5) Notwithstanding anything contained in this section, no input tax credit shall be available in respect of the following:
+    (a) motor vehicles except when used for specified purposes
+    (b) goods or services for personal consumption
+    (c) goods lost, stolen, destroyed, written off or disposed of by way of gift
+    (d) goods or services received by a non-resident taxable person
+    (e) goods or services used for private or personal consumption
+
+SECTION 50: INTEREST ON DELAYED PAYMENT OF TAX
+
+(1) Every person who is liable to pay tax shall pay interest at the rate of eighteen percent per annum on the amount of tax that remains unpaid beyond the due date.
+
+(2) The interest shall be calculated from the day succeeding the day on which such tax was due to be paid.
+
+SECTION 73: DETERMINATION OF TAX NOT PAID OR SHORT PAID
+
+(1) Where it appears to the proper officer that any tax has not been paid or short paid, he may serve notice on the person chargeable with tax which has not been so paid requiring him to show cause as to why he should not pay the amount specified in the notice.
+
+(8) The proper officer shall issue an order within three years from the due date for furnishing of annual return for the financial year to which the tax not paid or short paid or erroneously refunded relates.
+
+SECTION 122: PENALTY FOR CERTAIN OFFENCES
+
+(1) Where a taxable person who:
+    (i) supplies any goods or services without issue of any invoice
+    (ii) issues an invoice without supply of goods or services
+    (iii) collects any amount as tax but fails to pay the same to the Government
+    shall pay a penalty of ten thousand rupees or an amount equivalent to the tax evaded, whichever is higher.
+
+(2) Any registered person who has not paid tax or makes short payment of tax shall pay a penalty of ten percent of the tax amount due subject to a minimum of ten thousand rupees.
