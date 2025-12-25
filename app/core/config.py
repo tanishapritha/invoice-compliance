@@ -7,8 +7,10 @@ load_dotenv()
 
 class Config:
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-    if not OPENAI_API_KEY:
-        raise ValueError("FATAL: OPENAI_API_KEY is missing from environment.")
+    OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+    
+    if not OPENAI_API_KEY and not OPENROUTER_API_KEY:
+        raise ValueError("FATAL: Both OPENAI_API_KEY and OPENROUTER_API_KEY are missing.")
 
     BASE_DIR = Path(__file__).resolve().parent.parent.parent
     CORPUS_DIR = BASE_DIR / "corpus"

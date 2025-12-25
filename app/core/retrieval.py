@@ -10,12 +10,12 @@ async def hybrid_retrieve(query: str) -> List[NodeWithScore]:
     vector_retriever = ingestion_manager.get_vector_retriever()
     keyword_retriever = ingestion_manager.get_keyword_retriever()
 
-    if not vector_retriever or not keyword_retriever:
+    if not vector_retriever and not keyword_retriever:
         return []
 
-    # Get results from both
-    vector_results = vector_retriever.retrieve(query)
-    keyword_results = keyword_retriever.retrieve(query)
+    # Get results from available retrievers
+    vector_results = vector_retriever.retrieve(query) if vector_retriever else []
+    keyword_results = keyword_retriever.retrieve(query) if keyword_retriever else []
 
     # Merge results (simple union by node ID)
     seen_ids = set()

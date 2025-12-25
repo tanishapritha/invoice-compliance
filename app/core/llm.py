@@ -1,10 +1,18 @@
-from llama_index.llms.openai import OpenAI
+from llama_index.llms.openrouter import OpenRouter
+from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+from llama_index.core import Settings
 from app.core.config import config
 
-def get_llm():
-    return OpenAI(
-        api_key=config.OPENAI_API_KEY,
-        model="gpt-4-turbo-preview"
+def setup_settings():
+    # Use OpenRouter for Generation to bypass direct OpenAI quota issues
+    Settings.llm = OpenRouter(
+        api_key=config.OPENROUTER_API_KEY,
+        model="openai/gpt-4o-mini"
     )
+    # Use Local HuggingFace for Embeddings to bypass OpenAI Quota issues
+    Settings.embed_model = HuggingFaceEmbedding(
+        model_name="BAAI/bge-small-en-v1.5"
+    )
+    return Settings.llm
 
-llm = get_llm()
+llm = setup_settings()

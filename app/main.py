@@ -4,7 +4,6 @@ from app.api.v1.endpoints import router as api_router
 
 app = FastAPI(title="Regulatory Compliance RAG System")
 
-# Enable CORS for frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"], # In production, restrict this.

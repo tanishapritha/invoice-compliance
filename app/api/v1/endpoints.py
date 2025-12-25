@@ -10,12 +10,20 @@ from app.core.abstention import should_abstain, generate_abstain_response
 from app.core.generation import generate_answer
 from app.core.faithfulness import verify_faithfulness
 from app.core.audit_logger import log_query, get_logs
+from app.core.cache import query_cache
 from app.ingestion.index import ingestion_manager
 
 router = APIRouter()
 
 @router.post("/query", response_model=None)
 async def query_compliance(request: QueryRequest):
+    # 0. Cache Check
+    cache_key = f"{request.jurisdiction}:{request.question.strip().lower()}"
+    cached_response = query_cache.get(cache_key)
+    if cached_response:
+        print(f"CACHE HIT: {cache_key}")
+        return cached_response
+
     query_id = str(uuid.uuid4())
     
     # 1. Retrieval
@@ -36,14 +44,25 @@ async def query_compliance(request: QueryRequest):
         log_query(query_id, request.question, request.jurisdiction, Outcome.ABSTAINED, confidence)
         return generate_abstain_response(query_id, reason)
     
-    # 4. Generation
-    answer = await generate_answer(request.question, nodes)
-    
-    # 5. Faithfulness Verification
-    is_faithful, faith_score = await verify_faithfulness(answer, nodes)
-    if not is_faithful:
-        log_query(query_id, request.question, request.jurisdiction, Outcome.ABSTAINED, confidence)
-        return generate_abstain_response(query_id, "Generated answer failed internal faithfulness verification and was rejected to prevent hallucination.")
+    # 4. Generation & 5. Verification
+    try:
+        # 4. Generation
+        answer = await generate_answer(request.question, nodes)
+        
+        # 5. Faithfulness Verification
+        is_faithful, faith_score = await verify_faithfulness(answer, nodes)
+        if not is_faithful:
+            log_query(query_id, request.question, request.jurisdiction, Outcome.ABSTAINED, confidence)
+            return generate_abstain_response(query_id, "Generated answer failed internal faithfulness verification and was rejected to prevent hallucination.", confidence)
+    except Exception as e:
+        if "insufficient_quota" in str(e).lower() or "rate_limit" in str(e).lower():
+            log_query(query_id, request.question, request.jurisdiction, Outcome.ERROR, confidence)
+            return generate_abstain_response(
+                query_id, 
+                "System is currently in read-only mode (OpenRouter/OpenAI API Quota Exceeded). Retrieval works, but answer generation is disabled.",
+                confidence
+            )
+        raise e
     
     # 6. Audit Logging
     log_query(query_id, request.question, request.jurisdiction, Outcome.ANSWERED, confidence)
@@ -58,13 +77,18 @@ async def query_compliance(request: QueryRequest):
         ) for n in nodes
     ]
     
-    return AnswerResponse(
+    response = AnswerResponse(
         query_id=query_id,
         answer=answer,
         confidence=confidence,
         grounding_nodes=grounding_nodes,
         faithfulness_score=faith_score
     )
+    
+    # Save to Cache
+    query_cache.set(cache_key, response)
+    
+    return response
 
 @router.post("/debug/retrieval")
 async def debug_retrieval(request: QueryRequest):

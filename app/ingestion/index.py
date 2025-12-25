@@ -5,6 +5,7 @@ from llama_index.core.node_parser import SentenceSplitter
 from llama_index.core.retrievers import VectorIndexRetriever
 from llama_index.retrievers.bm25 import BM25Retriever
 from app.core.config import config
+from app.core.llm import llm
 
 PERSIST_DIR = "./storage"
 
@@ -52,9 +53,9 @@ class IngestionManager:
             
         except Exception as e:
             print(f"CRITICAL: Failed to initialize VectorStoreIndex: {e}")
-            print("This is likely due to OpenAI API rate limits. The index will be empty.")
-            print("To fix: Wait a few minutes and restart the server, or upgrade your OpenAI API tier.")
-            self.nodes = []
+            print("This is likely due to OpenAI API rate limits.")
+            print("Falling back to Keyword Only mode (BM25).")
+            # Do NOT clear self.nodes here, so BM25 still works!
             self.index = None
         
     def get_vector_retriever(self, similarity_top_k=3):

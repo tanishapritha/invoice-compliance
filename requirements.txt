@@ -6,3 +6,8 @@ llama-index-llms-openai
 llama-index-retrievers-bm25
 python-dotenv
 numpy
+pypdf
+pytest
+httpx
+llama-index-llms-openrouter
+llama-index-embeddings-huggingface

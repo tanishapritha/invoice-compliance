@@ -13,10 +13,10 @@ def should_abstain(confidence: ConfidenceLevel, nodes_count: int) -> tuple[bool,
     
     return False, ""
 
-def generate_abstain_response(query_id: str, reason: str) -> AbstainResponse:
+def generate_abstain_response(query_id: str, reason: str, confidence: ConfidenceLevel = ConfidenceLevel.LOW) -> AbstainResponse:
     return AbstainResponse(
         query_id=query_id,
         reason=reason,
-        confidence=ConfidenceLevel.LOW,
+        confidence=confidence,
         outcome=Outcome.ABSTAINED
     )
