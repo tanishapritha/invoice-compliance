@@ -56,10 +56,6 @@ This system answers GST compliance questions by retrieving relevant information 
 pip install -r requirements.txt
 
 # Set your OpenAI API key
-echo "OPENAI_API_KEY=your_key_here" > .env
-
-# Add GST documents to corpus/
-# (PDFs or text files with GST rules, circulars, etc.)
 
 # Run the server
 uvicorn app.main:app --host 0.0.0.0 --port 8000
